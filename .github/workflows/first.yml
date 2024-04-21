@@ -18,5 +18,23 @@ jobs:
         run: npm run build
       - name: package
         run: npm run app:build
-
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: TODO New Release.
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: /Users/runner/work/ChatGPT-Next-Web/ChatGPT-Next-Web/src-tauri/target/release/bundle/dmg/NextChat_2.11.3_x64.dmg
+          asset_name: NextChat_2.11.3_x64.dmg
 
