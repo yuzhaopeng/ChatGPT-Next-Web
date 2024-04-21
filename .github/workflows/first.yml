@@ -1,0 +1,10 @@
+name: github-test
+on: push
+jobs:
+  my_first_job:
+    name: My first job
+    runs-on: macOS-latest
+    steps:
+      - name: Print a greeting
+        run: npm run build
+
