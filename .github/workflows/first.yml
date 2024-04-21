@@ -19,18 +19,8 @@ jobs:
         run: npm run build
       - name: package
         run: npm run app:build
-      - name: Upload Release
-        if: github.event.inputs.release == 'true' && !cancelled()
-        uses: ncipollo/release-action@v1
+      - name: Upload math result for job 1
+        uses: actions/upload-artifact@v4
         with:
-          name: wiliwili ${{  github.event.inputs.version }}
-          tag: ${{  github.event.inputs.version }}
-          omitBodyDuringUpdate: true
-          body: This release is built by github-action.
-          token: ${{ secrets.GITHUB_TOKEN }}
-          allowUpdates: true
-          artifacts: >
-            /Users/runner/work/ChatGPT-Next-Web/ChatGPT-Next-Web/src-tauri/target/release/bundle/macos/NextChat.app
-            /Users/runner/work/ChatGPT-Next-Web/ChatGPT-Next-Web/src-tauri/target/release/bundle/dmg/NextChat_2.11.3_x64.dmg
-
-
+          name: aa
+          path: /Users/runner/work/ChatGPT-Next-Web/ChatGPT-Next-Web/src-tauri/target/release/bundle/dmg/NextChat_2.11.3_x64.dmg
