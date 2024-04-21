@@ -19,23 +19,18 @@ jobs:
         run: npm run build
       - name: package
         run: npm run app:build
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Release
+        if: github.event.inputs.release == 'true' && !cancelled()
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: v2
-          release_name: Release v2
-          body: TODO New Release.
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /Users/runner/work/ChatGPT-Next-Web/ChatGPT-Next-Web/src-tauri/target/release/bundle/dmg/NextChat_2.11.3_x64.dmg
-          asset_name: NextChat_2.11.3_x64.dmg
+          name: wiliwili ${{  github.event.inputs.version }}
+          tag: ${{  github.event.inputs.version }}
+          omitBodyDuringUpdate: true
+          body: This release is built by github-action.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: true
+          artifacts: >
+            /Users/runner/work/ChatGPT-Next-Web/ChatGPT-Next-Web/src-tauri/target/release/bundle/macos/NextChat.app
+            /Users/runner/work/ChatGPT-Next-Web/ChatGPT-Next-Web/src-tauri/target/release/bundle/dmg/NextChat_2.11.3_x64.dmg
+
 
