@@ -1,18 +1,20 @@
 name: github-test
 on: push
 jobs:
-  my_first_job:
-    name: My first job
+  pull_code:
+    name: checkout
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v3
       - name: setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-      - name: Print a greeting
-        run: echo `pwd`
-      - name: Print 2
-        run: ls -alh
-      - name: Print 3
-        run: ls -alh ../
+          node-version: 18 
+      - name: get version
+        run: echo "PACKAGE_VERSION=$(node -p "require('./src-tauri/tauri.conf.json').package.version")" >> $GITHUB_ENV
+      - name: install
+        run: npm install
+      - name: build
+        run: npm run build
+      - name: package
+        run: npm run app:build
