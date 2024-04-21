@@ -11,10 +11,12 @@ jobs:
         with:
           node-version: 18 
       - name: get version
-        run: echo "PACKAGE_VERSION=$(node -p "require('./src-tauri/tauri.conf.json').package.version")" >> $GITHUB_ENV
+        run: echo "PACKAGE_VERSION=$(node -p "require('./src-tauri/tauri.conf.json').package.version")"
       - name: install
         run: npm install
       - name: build
         run: npm run build
       - name: package
         run: npm run app:build
+
+
