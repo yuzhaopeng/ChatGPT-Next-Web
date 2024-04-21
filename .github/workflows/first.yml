@@ -5,6 +5,11 @@ jobs:
     name: My first job
     runs-on: macOS-latest
     steps:
+      - uses: actions/checkout@v3
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
       - name: Print a greeting
         run: echo `pwd`
       - name: Print 2
